@@ -1,3 +1,4 @@
+/// <reference path="./index.d.ts" />
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -8,8 +9,10 @@
 // https://on.cypress.io/custom-commands
 // ***********************************************
 //
-//
-// -- This is a parent command --
+Cypress.Commands.add("acceptCookies", () => {
+  cy.get('[data-action-type="accept"]').click();
+});
+// -- This is a parent command --mos
 // Cypress.Commands.add('login', (email, password) => { ... })
 //
 //
