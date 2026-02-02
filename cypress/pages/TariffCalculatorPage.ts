@@ -10,8 +10,18 @@ export class TariffCalculatorPage {
   private readonly INSURANCE_SUBMIT_BUTTON =
     '[data-cy="insurance-product-continue"]';
   private readonly BIRTHDAY_INPUT_SELECTOR = '[data-cy="day"]';
-  private readonly BIRTH_MONTH_INPUT_SELECTOR = '[data-cy="month"]';
-  private readonly BIRTH_YEAR_INPUT_SELECTOR = '[data-cy="year"]';
+  private readonly BIRTHMONTH_INPUT_SELECTOR = '[data-cy="month"]';
+  private readonly BIRTHYEAR_INPUT_SELECTOR = '[data-cy="year"]';
+  private readonly BIRTHDATE_ERROR = '[data-cy$="-validation-message"]';
+  private readonly BIRTHDATE_SUBMIT_BUTTON = '[data-cy="birthdate-continue"]';
+  // private readonly BIRTHDATE_ERROR_YOUNG =
+  //   '[data-cy="min-age-validation-message"]';
+  // private readonly BIRTHDATE_ERROR_OLD =
+  //   '[data-cy="max-age-validation-message"]';
+  // private readonly BIRTHDATE_ERROR_INVALID =
+  //   '[data-cy="invalid-age-validation-message"]';
+  // private readonly BIRTHDATE_ERROR_FUTURE =
+  //   '[data-cy="negative-age-validation-message"]';
 
   setupIncome(income: string) {
     cy.get(this.EMPLOYED_RADIO_SELECTOR)
@@ -33,7 +43,15 @@ export class TariffCalculatorPage {
 
   setupBirthdate(day: string, month: string, year: string) {
     cy.get(this.BIRTHDAY_INPUT_SELECTOR).type(day);
-    cy.get(this.BIRTH_MONTH_INPUT_SELECTOR).type(month);
-    cy.get(this.BIRTH_YEAR_INPUT_SELECTOR).type(year);
+    cy.get(this.BIRTHMONTH_INPUT_SELECTOR).type(month);
+    cy.get(this.BIRTHYEAR_INPUT_SELECTOR).type(year);
+  }
+
+  verifyBirthdateError(errorMessage: string) {
+    cy.get(this.BIRTHDATE_ERROR).contains(errorMessage);
+  }
+  submitBirthdate() {
+    cy.get('button[data-cy="submit"]').should("be.enabled");
+    cy.get(this.BIRTHDATE_SUBMIT_BUTTON).click();
   }
 }
