@@ -5,6 +5,7 @@ describe("tariff calculator", () => {
   beforeEach(function () {
     cy.visit("/");
     cy.acceptCookies();
+
     cy.fixture("tariffCalculatorData").as("data");
   });
   it("employee salary setup", function () {

@@ -2,12 +2,17 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
-     baseUrl: 'https://www.ottonova.de/online-beitragsrechner',
-     includeShadowDom: true,
-    env: {
-      apiUrl: 'https://pokeapi.co/api/v2/pokemon/pikachu ',
+    baseUrl: "https://www.ottonova.de/online-beitragsrechner",
+    includeShadowDom: true,
+    viewportWidth: 1280,
+    viewportHeight: 720,
+    defaultCommandTimeout: 10000,
+    retries: {
+      runMode: 1,
+      openMode: 1, //cookies issue for the 1. run
     },
-    setupNodeEvents(on: any, config: any) {
-    },
+    video: true,
+    screenshotOnRunFailure: true,
+    setupNodeEvents(on: any, config: any) {},
   },
 });
