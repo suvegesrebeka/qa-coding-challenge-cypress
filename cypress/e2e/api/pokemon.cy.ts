@@ -7,29 +7,43 @@ describe("PokeAPI Automated Tests", () => {
     });
   });
 
-  it("GET - Pikachu - Full ability object check with logging", () => {
-    const expected = data.expectedResponses.pikachu;
+  it("[POS] GET - Pikachu - Assert status and attributes", () => {
+    const expected = data.pikachu.response;
 
-    cy.request("GET", `${data.baseUrl}${data.endpoints.pikachu}`).then(
+    cy.request("GET", `${data.baseUrl}${data.pikachu.endpoint}`).then(
       (response) => {
-        // Status code ellenőrzése
-        expect(response.status).to.eq(expected.status);
-
-        // Name ellenőrzése
+        expect(response.status).to.eq(data.pikachu.response.status);
         expect(response.body).to.have.property("name", expected.name);
 
-        // Ability objektum ellenőrzése
         expected.abilities.forEach((expectedAbility: any) => {
           const found = response.body.abilities.find(
             (item: any) => item.ability.name === expectedAbility.ability.name,
           );
 
           expect(found).to.exist;
-
-          // Teljes objektum összehasonlítás
           expect(found).to.deep.equal(expectedAbility);
         });
       },
     );
+  });
+
+  it("[NEG] GET - Charmander - 404 response mock", () => {
+    // Mockoljuk a végpontot
+    cy.intercept("GET", "https://pokeapi.co/api/v2/pokemon/charmander", {
+      statusCode: 404,
+      body: { error: "Not Found" },
+    }).as("getCharmander");
+
+    cy.window().then((win) => {
+      return win
+        .fetch("https://pokeapi.co/api/v2/pokemon/charmander")
+        .then((res) =>
+          res.json().then((body) => ({ status: res.status, body })),
+        )
+        .then((response) => {
+          expect(response.status).to.eq(404);
+          expect(response.body.error).to.eq("Not Found");
+        });
+    });
   });
 });

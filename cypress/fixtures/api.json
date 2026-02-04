@@ -1,12 +1,10 @@
 {
   "baseUrl": "https://pokeapi.co/api/v2/pokemon",
-  "endpoints": {
-    "pikachu": "/pikachu"
-  },
-  "expectedResponses": {
-    "pikachu": {
-      "status": 200,
+  "pikachu": {
+    "endpoint": "/pikachu",
+    "response": {
       "name": "pikachu",
+      "status": 200,
       "abilities": [
         {
           "ability": {
@@ -17,6 +15,14 @@
           "slot": 3
         }
       ]
+    }
+  },
+  "charmander": {
+    "endpoint": "/charmander",
+    "response": {
+      "name": "charmander",
+      "status": 404,
+      "message": "Not Found"
     }
   }
 }
