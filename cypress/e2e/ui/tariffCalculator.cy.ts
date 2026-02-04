@@ -1,4 +1,4 @@
-import { TariffCalculatorPage } from "../pages/TariffCalculatorPage";
+import { TariffCalculatorPage } from "../../pages/TariffCalculatorPage";
 
 describe("tariff calculator", () => {
   beforeEach(function () {

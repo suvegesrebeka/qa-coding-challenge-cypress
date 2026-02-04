@@ -6,7 +6,6 @@ module.exports = defineConfig({
     includeShadowDom: true,
     viewportWidth: 1280,
     viewportHeight: 720,
-    defaultCommandTimeout: 10000,
     retries: {
       runMode: 1,
       openMode: 1, //cookies issue for the 1. run
