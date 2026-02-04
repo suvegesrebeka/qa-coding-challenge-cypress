@@ -1,57 +1,53 @@
+import { tariffCalculatorSelectors as s } from "../support/selectors/tariffCalculator";
+
 export class TariffCalculatorPage {
-  private readonly EMPLOYED_RADIO_SELECTOR =
-    '[data-cy="employment-status-option-employed"] input[type="radio"]';
-  private readonly SALARY_INPUT_SELECTOR = '[data-cy="income-input"]';
-  private readonly EMPLOYEE_SUBMIT_BUTTON =
-    '[data-cy="employment-status-continue"]';
-  private readonly COMPREHENSIVE_INSURANCE_RADIO_SELECTOR =
-    "[data-gtm-form-interact-field-id]";
-  private readonly START_DATE_INPUT_SELECTOR = '[data-cy="ingress-date"]';
-  private readonly INSURANCE_SUBMIT_BUTTON =
-    '[data-cy="insurance-product-continue"]';
-  private readonly BIRTHDAY_INPUT_SELECTOR = '[data-cy="day"]';
-  private readonly BIRTHMONTH_INPUT_SELECTOR = '[data-cy="month"]';
-  private readonly BIRTHYEAR_INPUT_SELECTOR = '[data-cy="year"]';
-  private readonly BIRTHDATE_ERROR = '[data-cy$="-validation-message"]';
-  private readonly BIRTHDATE_SUBMIT_BUTTON = '[data-cy$="-continue"]';
-  // private readonly BIRTHDATE_ERROR_YOUNG =
-  //   '[data-cy="min-age-validation-message"]';
-  // private readonly BIRTHDATE_ERROR_OLD =
-  //   '[data-cy="max-age-validation-message"]';
-  // private readonly BIRTHDATE_ERROR_INVALID =
-  //   '[data-cy="invalid-age-validation-message"]';
-  // private readonly BIRTHDATE_ERROR_FUTURE =
-  //   '[data-cy="negative-age-validation-message"]';
-
+  // Selects "Angestellt" radio button, types the yearly income
+  // and clicks continue to proceed to the next step.
   setupIncome(income: string) {
-    cy.get(this.EMPLOYED_RADIO_SELECTOR)
+    cy.get(s.employment.radioEmployed)
       .check({ force: true })
-      .should("be.checked");
-    cy.get(this.SALARY_INPUT_SELECTOR).type(income);
-    cy.get(this.EMPLOYEE_SUBMIT_BUTTON).click();
+      .should("be.checked")
+      .get(s.employment.salaryInput)
+      .clear()
+      .type(income)
+      .get(s.employment.continueBtn)
+      .click();
   }
 
+  // Verifies that "Vollversicherung" radio button is automaticallyvselected
+  // after the income step.
   verifyComprehensiveInsurance() {
-    cy.get(this.COMPREHENSIVE_INSURANCE_RADIO_SELECTOR).should("be.checked");
+    cy.get(s.insurance.comprehensiveRadio).should("be.checked");
   }
 
+  // Selects the desired insurance start date from the dropdown
+  // clicking the continue button.
   setupStartDate(startDate: string) {
-    cy.get(this.START_DATE_INPUT_SELECTOR).select(startDate);
-    cy.get(this.START_DATE_INPUT_SELECTOR).contains(startDate);
-    cy.get(this.INSURANCE_SUBMIT_BUTTON).click();
+    cy.get(s.startDate.select)
+      .select(startDate)
+      .get(s.startDate.select)
+      .contains(startDate)
+      .get(s.insurance.continueBtn)
+      .click();
   }
 
+  // Types day, month and year into the three separate birthdate input fields.
   setupBirthdate(day: string, month: string, year: string) {
-    cy.get(this.BIRTHDAY_INPUT_SELECTOR).type(day);
-    cy.get(this.BIRTHMONTH_INPUT_SELECTOR).type(month);
-    cy.get(this.BIRTHYEAR_INPUT_SELECTOR).type(year);
+    cy.get(s.birthdate.dayInput)
+      .type(day)
+      .get(s.birthdate.monthInput)
+      .type(month)
+      .get(s.birthdate.yearInput)
+      .type(year);
   }
 
+  // Asserts that a specific birthdate validation error message is visible.
   verifyBirthdateError(errorMessage: string) {
-    cy.get(this.BIRTHDATE_ERROR).contains(errorMessage);
+    cy.get(s.birthdate.error).contains(errorMessage);
   }
 
+  // Clicks the continue button after birthdate input
   submitBirthdate() {
-    cy.get(this.BIRTHDATE_SUBMIT_BUTTON).should("be.enabled").click();
+    cy.get(s.birthdate.continueBtn).should("be.enabled").click();
   }
 }

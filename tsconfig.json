@@ -8,9 +8,5 @@
     "forceConsistentCasingInFileNames": true,
     "types": ["cypress", "node"]
   },
-  "include": [
-    "cypress/**/*.ts",
-    "cypress/**/*.d.ts",
-    "*.ts"
-  ]
+  "include": ["cypress/**/*.ts", "cypress/**/*.d.ts", "*.ts"]
 }
