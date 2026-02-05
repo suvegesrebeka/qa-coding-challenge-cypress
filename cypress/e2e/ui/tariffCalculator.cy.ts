@@ -4,7 +4,7 @@ describe("tariff calculator", () => {
   beforeEach(function () {
     cy.fixture("tariffCalculatorData").as("data");
     cy.visit("/", { timeout: 15000 });
-    cy.wait(1500);
+    cy.wait(1500); // Wait for the cookie banner to load
     cy.acceptCookies();
   });
   it("employee salary setup", function () {

@@ -2,15 +2,9 @@
 
 Cypress.Commands.add("acceptCookies", () => {
   cy.document().then((doc) => {
-    const aside = doc.querySelector("aside#usercentrics-cmp-ui");
-    if (aside?.shadowRoot) {
-      const buttons = Array.from(aside.shadowRoot.querySelectorAll("button"));
-      const acceptBtn = buttons.find((btn) =>
-        btn.textContent?.includes("Alles akzeptieren"),
-      );
-      if (acceptBtn) {
-        (acceptBtn as HTMLButtonElement).click();
-      }
-    }
+    const btn = doc
+      .querySelector("aside#usercentrics-cmp-ui")
+      ?.shadowRoot?.querySelector('[data-action-type="accept"]');
+    if (btn) (btn as HTMLButtonElement).click();
   });
 });

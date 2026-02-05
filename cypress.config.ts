@@ -8,7 +8,7 @@ module.exports = defineConfig({
     viewportHeight: 720,
     retries: {
       runMode: 1,
-      openMode: 1,
+      openMode: 0,
     },
     video: true,
     screenshotOnRunFailure: true,
