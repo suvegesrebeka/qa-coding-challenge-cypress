@@ -7,8 +7,8 @@ module.exports = defineConfig({
     viewportWidth: 1280,
     viewportHeight: 720,
     retries: {
-      runMode: 2,
-      openMode: 1, //cookies issue for the 1. run
+      runMode: 1,
+      openMode: 1,
     },
     video: true,
     screenshotOnRunFailure: true,

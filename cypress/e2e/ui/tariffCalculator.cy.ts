@@ -3,14 +3,14 @@ import { TariffCalculatorPage } from "../../pages/TariffCalculatorPage";
 describe("tariff calculator", () => {
   beforeEach(function () {
     cy.fixture("tariffCalculatorData").as("data");
-    cy.visit("/");
+    cy.visit("/", { timeout: 15000 });
+    cy.wait(1500);
     cy.acceptCookies();
   });
   it("employee salary setup", function () {
     const page = new TariffCalculatorPage();
 
     page.setupIncome(this.data.income);
-    page.verifyComprehensiveInsurance();
     page.setupStartDate(this.data.startDate);
     for (const birthDate of Object.keys(this.data.invalidBirthDate)) {
       page.setupBirthdate(

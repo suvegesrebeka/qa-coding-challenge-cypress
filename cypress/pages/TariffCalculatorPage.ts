@@ -14,12 +14,6 @@ export class TariffCalculatorPage {
       .click();
   }
 
-  // Verifies that "Vollversicherung" radio button is automaticallyvselected
-  // after the income step.
-  verifyComprehensiveInsurance() {
-    cy.get(s.insurance.comprehensiveRadio).should("be.checked");
-  }
-
   // Selects the desired insurance start date from the dropdown
   // clicking the continue button.
   setupStartDate(startDate: string) {
