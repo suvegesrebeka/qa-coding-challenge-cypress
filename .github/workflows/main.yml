@@ -6,7 +6,7 @@ on:
   pull_request:
   workflow_dispatch:
   schedule:
-    - cron: "0 10 * * *"
+    - cron: "07 10 * * *"
 
 jobs:
   cypress-run:
@@ -24,3 +24,4 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           browsers: ${{ matrix.browsers }}
+          node-version: 20
